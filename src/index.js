@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import 'react-app-polyfill/ie9'; // For IE 9-11 support
+import 'react-app-polyfill/stable';
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
