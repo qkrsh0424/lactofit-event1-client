@@ -7,7 +7,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
     
     width:1920px;
-    background:var(--myYellow);
+    background:var(--myPink);
     margin-left: auto;
     margin-right: auto;
     padding:20px 0;
@@ -24,18 +24,33 @@ const ButtonContainer = styled.div`
 const ButtonEl = styled.button`
     width:80%;
     background:var(--myRed);
-    border:2px solid white;
+    /* background-image: linear-gradient(to right, #ff6e7f 0%, #bfe9ff  51%, #ff6e7f  100%); */
+    /* background-image: linear-gradient(to right, var(--myYellow) 0%, #ffffff 51%, var(--myRed) 100%); */
+    /* background-size: 200% auto; */
+
+    /* border:2px solid white; */
+    /* border:2px solid var(--myYellow); */
+    border:none;
     border-radius:1rem;
+    /* color:var(--myYellow); */
     color:white;
     padding:1.5rem;
     font-size:1.5rem;
-    font-weight:600;
+    font-weight:900;
     text-shadow: 2px 2px 2px #333;
     cursor:pointer;
+    box-shadow: #ffffff50 0px 5px 15px;
+
+    transition: 0.5s;
     &:focus{
         outline:none;
     }
-    box-shadow: #ffffff50 0px 5px 15px;
+
+    &:hover{
+        /* background-position: right center; */
+        color: var(--myYellow);
+        text-decoration: none;
+    }
 `;
 
 
@@ -52,5 +67,26 @@ const ApplyButton = (props) => {
         </>
     );
 }
+
+
+// .btn-grad {background-image: linear-gradient(to right, #ff6e7f 0%, #bfe9ff  51%, #ff6e7f  100%)}
+// .btn-grad {
+//    margin: 10px;
+//    padding: 15px 45px;
+//    text-align: center;
+//    text-transform: uppercase;
+//    transition: 0.5s;
+//    background-size: 200% auto;
+//    color: white;            
+//    box-shadow: 0 0 20px #eee;
+//    border-radius: 10px;
+//    display: block;
+//  }
+
+//  .btn-grad:hover {
+//    background-position: right center; /* change the direction of the change here */
+//    color: #fff;
+//    text-decoration: none;
+//  }
 
 export default ApplyButton;

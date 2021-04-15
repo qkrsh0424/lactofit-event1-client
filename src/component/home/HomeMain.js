@@ -12,6 +12,23 @@ import ApplyModal from '../apply/ApplyModal';
 import CircularLoading from '../loading/CircularLoading';
 
 const FILE_MAX_SIZE = 10000000 // 10MB 초과시 리턴
+
+const ImageBox = styled.div`
+    position: relative;
+    padding-bottom: 42.86%; // 21:9 1920px x 823px
+    @media only screen and (max-width:1100px){
+        padding-bottom: 75%; // 4:3 1100px x 825px
+    }
+`;
+
+const ImageEl = styled.img`
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: .5s;
+`;
+
 const HomeMain = () => {
     const [eventModalOpen, setEventModalOpen] = useState(false);
     const [imageLoadingOpen, setImageLoadingOpen] = useState(false);
@@ -113,6 +130,9 @@ const HomeMain = () => {
             {/* <ImageEl src="http://image.piaar.co.kr/main.jpeg"></ImageEl> */}
             {/* <img src="https://s3.ap-northeast-2.amazonaws.com/image.piaar.co.kr/upload/image/1618370694744-12342.jpeg"></img> */}
             {/* <HomeBody></HomeBody> */}
+            <ImageBox>
+                <ImageEl src='https://s3.ap-northeast-2.amazonaws.com/image.piaar.co.kr/main.jpeg'></ImageEl>
+            </ImageBox>
             {/* == Apply Button Part START == */}
             <ApplyButton
                 homeMainEventControl={homeMainEventControl}
