@@ -36,8 +36,12 @@ const HomeMain = () => {
     const [myData, setMyData] = useState({
         'nickname':'',
         'phone':'',
-        'imageUrl':null
+        'imageUrl':null,
+        'imageName':null,
+        'agreePrivacy':false,
+        'agreeConsignment':false
     });
+
     const __homeMainDataConnect = () => {
         return {
             uploadFile: function () {
@@ -45,12 +49,14 @@ const HomeMain = () => {
                     toS3: async function (fd) {
                         await fileUploadDataConnect().uploadImageToS3(fd)
                             .then(res => {
+                                console.log(res);
                                 if (res.status == 200) { return res.data } else { return null }
                             })
                             .then(data => {
                                 if (data && data.message == 'success') {
                                     alert('업로드 성공');
-                                    setMyData({...myData, ['imageUrl']:data.data.imageUrl});
+                                    
+                                    setMyData({...myData, ['imageUrl']:data.data.imageUrl, ['imageName']:data.data.imageName});
                                 } else if(data && data.message == 'failure'){
                                     alert('업로드 실패');
                                 }else{
@@ -63,6 +69,7 @@ const HomeMain = () => {
                                     return;
                                 }
                                 let res = err.response;
+                                console.log(res);
                                 if(res && res.data && res.data.message=='extension_error'){
                                     alert('잘못된 접근 방식입니다.\nhint: extension error 400');
                                 }else{
@@ -71,6 +78,9 @@ const HomeMain = () => {
                             })
                     }
                 }
+            },
+            insertEventApplication: async function(){
+
             }
         }
     }

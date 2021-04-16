@@ -9,10 +9,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+const __MY_RED='#eb1c24';
+const __MY_YELLOW='#ffe431';
+const __MY_PINK='#f8a59d';
+
 const DialogContainer = styled.div`
     position:relative;
     & .MyDialogTitle{
-        background:var(--myPink);
+        background:${__MY_PINK};
         text-align:center;
         color:white;
         padding:3rem;
@@ -25,7 +29,7 @@ const DialogContainer = styled.div`
 `;
 
 const TitleContainer = styled.div`
-    background:var(--myPink);
+    background:${__MY_PINK};
     color:#333;
 `;
 
@@ -106,9 +110,9 @@ const InputEl = styled.input`
     font-size:1.5rem;
     transition:0.3s;
     &:focus{
-        /* outline-color:var(--myYellow); */
+        /* outline-color:${__MY_YELLOW}; */
         outline:none;
-        border:2px solid var(--myYellow);
+        border:2px solid ${__MY_YELLOW};
     }
 
     @media only screen and (max-width:1100px){
@@ -206,7 +210,7 @@ const CancelBtnEl = styled.button`
 `;
 
 const RegBtnEl = styled.button`
-    background:var(--myPink);
+    background:${__MY_PINK};
     border:none;
     padding:30px;
     margin:0 10px;
@@ -270,8 +274,8 @@ const ApplyModal = (props) => {
                         </DialogContentText> */}
                         <InputContainer>
                             <InputLabel>이름</InputLabel>
-                            <InputEl type='text' placeholder='ex) 락토핏짱'></InputEl>
-                            <InputSmallEl>* 추첨시 사용하실 닉네임을 한글로 입력해주세요.</InputSmallEl>
+                            <InputEl type='text' placeholder='ex) 홍길동'></InputEl>
+                            <InputSmallEl>* 이벤트 신청인 이름을 입력해주세요.</InputSmallEl>
                         </InputContainer>
                         <InputContainer>
                             <InputLabel>휴대전화번호</InputLabel>

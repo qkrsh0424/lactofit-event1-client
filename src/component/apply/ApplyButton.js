@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+const __MY_RED='#eb1c24';
+const __MY_YELLOW='#ffe431';
+const __MY_PINK='#f8a59d';
+
 const Container = styled.div`
     overflow:hidden;
 `;
@@ -7,7 +11,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
     
     width:1920px;
-    background:var(--myPink);
+    background:${__MY_PINK};
     margin-left: auto;
     margin-right: auto;
     padding:20px 0;
@@ -23,16 +27,16 @@ const ButtonContainer = styled.div`
 
 const ButtonEl = styled.button`
     width:80%;
-    background:var(--myRed);
+    background:${__MY_RED};
     /* background-image: linear-gradient(to right, #ff6e7f 0%, #bfe9ff  51%, #ff6e7f  100%); */
-    /* background-image: linear-gradient(to right, var(--myYellow) 0%, #ffffff 51%, var(--myRed) 100%); */
+    /* background-image: linear-gradient(to right, __MY_YELLOW 0%, #ffffff 51%, __MY_Red 100%); */
     /* background-size: 200% auto; */
 
     /* border:2px solid white; */
-    /* border:2px solid var(--myYellow); */
+    /* border:2px solid ${__MY_YELLOW}; */
     border:none;
     border-radius:1rem;
-    /* color:var(--myYellow); */
+    /* color:${__MY_YELLOW}; */
     color:white;
     padding:1.5rem;
     font-size:1.5rem;
@@ -48,7 +52,7 @@ const ButtonEl = styled.button`
 
     &:hover{
         /* background-position: right center; */
-        color: var(--myYellow);
+        color: ${__MY_YELLOW};
         text-decoration: none;
     }
 `;
