@@ -1,17 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
-const __MY_RED='#eb1c24';
-const __MY_YELLOW='#ffe431';
-const __MY_PINK='#f8a59d';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
+const __MY_RED = '#eb1c24';
+const __MY_YELLOW = '#ffe431';
+const __MY_PINK = '#f8a59d';
 
 const DialogContainer = styled.div`
     position:relative;
@@ -81,7 +82,7 @@ const ContentExplainBox = styled.div`
         font-size:1.2rem;
     }
     @media only screen and (max-width:340px){
-        font-size:0.8rem;
+        font-size:1rem;
     }
 `;
 
@@ -232,6 +233,22 @@ const RegBtnEl = styled.button`
         font-size:1.2rem;
     }
 `;
+
+const CheckBoxLabel = styled.label`
+    font-size:1.2rem;
+    font-weight: 700;
+    /* padding:5px; */
+    vertical-align:middle;
+    @media only screen and (max-width:1100px){
+        font-size:1.2rem;
+    }
+    @media only screen and (max-width:576px){
+        font-size:10px;
+    }
+    /* @media only screen and (max-width:340px){
+        font-size:0.7rem;
+    } */
+`;
 const ApplyModal = (props) => {
     const [fullWidth, setFullWidth] = React.useState(true);
     const [maxWidth, setMaxWidth] = React.useState('md');
@@ -274,12 +291,12 @@ const ApplyModal = (props) => {
                         </DialogContentText> */}
                         <InputContainer>
                             <InputLabel>이름</InputLabel>
-                            <InputEl type='text' placeholder='ex) 홍길동'></InputEl>
+                            <InputEl type='text' name='name' placeholder='ex) 홍길동' value={props.myData.name} onChange={(e) => props.homeMainEventControl().handleInputValueChange(e)}></InputEl>
                             <InputSmallEl>* 이벤트 신청인 이름을 입력해주세요.</InputSmallEl>
                         </InputContainer>
                         <InputContainer>
                             <InputLabel>휴대전화번호</InputLabel>
-                            <InputEl type='text' placeholder='ex) 01012341234'></InputEl>
+                            <InputEl type='text' name='phone' placeholder='ex) 01012341234' value={props.myData.phone} onChange={(e) => props.homeMainEventControl().handleInputValueChange(e)}></InputEl>
                             <InputSmallEl>* 당첨시 연락받으실 전화번호를 '-' 를 제외한 숫자만 입력해주세요.</InputSmallEl>
                         </InputContainer>
                         <InputContainer>
@@ -300,12 +317,26 @@ const ApplyModal = (props) => {
                                 </ImageWrapper>
                             }
                         </InputContainer>
+                        <InputContainer>
+                            <div>
+                                <Checkbox color="default" name='agreePrivacy' checked={props.myData.agreePrivacy} onChange={(e) => props.homeMainEventControl().handleInputValueChange(e)}/>
+                                <CheckBoxLabel><a href='/' target='_blank'><u>개인정보 수집 및 이용</u></a>에 동의합니다.(필수)</CheckBoxLabel>
+                            </div>
+                            <div>
+                                <Checkbox color="default" name='agreeConsignment' checked={props.myData.agreeConsignment} onChange={(e) => props.homeMainEventControl().handleInputValueChange(e)}/>
+                                <CheckBoxLabel><a href='/' target='_blank'><u>개인정보 위탁</u></a>에 동의합니다.(필수)</CheckBoxLabel>
+                            </div>
+                            <div>
+                                <Checkbox color="default" name='agreeNotice' checked={props.myData.agreeNotice} onChange={(e) => props.homeMainEventControl().handleInputValueChange(e)}/>
+                                <CheckBoxLabel>이벤트 유의사항을 모두 확인했으며, 이에 동의합니다.(필수)</CheckBoxLabel>
+                            </div>
+                        </InputContainer>
                     </DialogContent>
                     <ButtonBox>
                         <CancelBtnEl type='button' onClick={() => props.homeMainEventControl().handleEventModal().close()}>
                             취소
                         </CancelBtnEl>
-                        <RegBtnEl type='button' onClick={() => props.homeMainEventControl().handleEventModal().close()} color="primary">
+                        <RegBtnEl type='button' onClick={() => props.homeMainEventControl().handleOnSubmit()}>
                             등록
                         </RegBtnEl>
                     </ButtonBox>

@@ -34,12 +34,13 @@ const HomeMain = () => {
     const [imageLoadingOpen, setImageLoadingOpen] = useState(false);
 
     const [myData, setMyData] = useState({
-        'nickname':'',
-        'phone':'',
-        'imageUrl':null,
-        'imageName':null,
-        'agreePrivacy':false,
-        'agreeConsignment':false
+        'name': '',
+        'phone': '',
+        'imageUrl': null,
+        'imageName': null,
+        'agreePrivacy': false,
+        'agreeConsignment': false,
+        'agreeNotice': false
     });
 
     const __homeMainDataConnect = () => {
@@ -55,31 +56,31 @@ const HomeMain = () => {
                             .then(data => {
                                 if (data && data.message == 'success') {
                                     alert('업로드 성공');
-                                    
-                                    setMyData({...myData, ['imageUrl']:data.data.imageUrl, ['imageName']:data.data.imageName});
-                                } else if(data && data.message == 'failure'){
+
+                                    setMyData({ ...myData, ['imageUrl']: data.data.imageUrl, ['imageName']: data.data.imageName });
+                                } else if (data && data.message == 'failure') {
                                     alert('업로드 실패');
-                                }else{
+                                } else {
                                     alert('undefined error, status 200');
                                 }
                             })
                             .catch(err => {
-                                if (err.code === 'ECONNABORTED'){
+                                if (err.code === 'ECONNABORTED') {
                                     alert('시간이 초과되었습니다. 다시 시도해주세요.');
                                     return;
                                 }
                                 let res = err.response;
                                 console.log(res);
-                                if(res && res.data && res.data.message=='extension_error'){
+                                if (res && res.data && res.data.message == 'extension_error') {
                                     alert('잘못된 접근 방식입니다.\nhint: extension error 400');
-                                }else{
+                                } else {
                                     alert('undefined error, status 500');
                                 }
                             })
                     }
                 }
             },
-            insertEventApplication: async function(){
+            insertEventApplication: async function () {
 
             }
         }
@@ -108,7 +109,7 @@ const HomeMain = () => {
                         if (files !== null && files.length > 0) {
                             if (files[0].size > FILE_MAX_SIZE) { // 10MB 초과시 리턴
                                 alert('파일 사이즈가 너무 큽니다. 15MB 이하의 이미지를 업로드 해주세요.');
-                            }else{
+                            } else {
                                 //FormData 생성
                                 const fd = new FormData();
                                 //FormData에 key, value 추가하기
@@ -122,15 +123,48 @@ const HomeMain = () => {
                     }
                 }
             },
-            handleImageLoading: function(){
-                return{
-                    open:function(){
+            handleImageLoading: function () {
+                return {
+                    open: function () {
                         setImageLoadingOpen(true);
                     },
-                    close: function(){
+                    close: function () {
                         setImageLoadingOpen(false);
                     }
                 }
+            },
+            handleInputValueChange: function (e) {
+                let typeName = e.target.name;
+                // console.log(typeName);
+                switch (typeName) {
+                    case 'agreePrivacy':
+                        setMyData({ ...myData, [typeName]: e.target.checked });
+                        break;
+                    case 'agreeConsignment':
+                        setMyData({ ...myData, [typeName]: e.target.checked });
+                        break;
+                    case 'agreeNotice':
+                        setMyData({ ...myData, [typeName]: e.target.checked });
+                        break;
+                    case 'phone':
+                        const regexPhone = /^[0-9]{0,13}$/;
+                        if (regexPhone.test(e.target.value)) {
+                            setMyData({ ...myData, [typeName]: e.target.value });
+                        }
+                        break;
+                    case 'name':
+                        const regexName = /^[a-zㄱ-ㅎㅏ-ㅣ가-힣!]{0,20}$/;
+                        if (regexName.test(e.target.value)) {
+                            setMyData({ ...myData, [typeName]: e.target.value });
+                        }
+                        break;
+                    default:
+                        setMyData({ ...myData, [typeName]: e.target.value });
+                        break;
+                }
+            },
+            handleOnSubmit: function(){
+                console.log(myData);
             }
         }
     }
