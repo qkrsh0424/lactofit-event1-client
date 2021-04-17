@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 // data connect
 import { fileUploadDataConnect } from '../../data_connect/upload/fileUploadDataConnect';
+import {homeMainDataConnect} from '../../data_connect/home/homeMainDataConnect';
 
 // component
 import HomeBody from './HomeBody';
@@ -36,8 +37,8 @@ const HomeMain = () => {
     const [myData, setMyData] = useState({
         'name': '',
         'phone': '',
-        'imageUrl': null,
-        'imageName': null,
+        'imageUrl': 'asd',
+        'imageName': 'asd',
         'agreePrivacy': false,
         'agreeConsignment': false,
         'agreeNotice': false
@@ -50,7 +51,7 @@ const HomeMain = () => {
                     toS3: async function (fd) {
                         await fileUploadDataConnect().uploadImageToS3(fd)
                             .then(res => {
-                                console.log(res);
+                                // console.log(res);
                                 if (res.status == 200) { return res.data } else { return null }
                             })
                             .then(data => {
@@ -70,7 +71,7 @@ const HomeMain = () => {
                                     return;
                                 }
                                 let res = err.response;
-                                console.log(res);
+                                // console.log(res);
                                 if (res && res.data && res.data.message == 'extension_error') {
                                     alert('잘못된 접근 방식입니다.\nhint: extension error 400');
                                 } else {
@@ -81,7 +82,8 @@ const HomeMain = () => {
                 }
             },
             insertEventApplication: async function () {
-
+                let data = myData;
+                await homeMainDataConnect().postEventApplication(data);
             }
         }
     }
@@ -147,14 +149,13 @@ const HomeMain = () => {
                         setMyData({ ...myData, [typeName]: e.target.checked });
                         break;
                     case 'phone':
-                        const regexPhone = /^[0-9]{0,13}$/;
-                        if (regexPhone.test(e.target.value)) {
+                        // const regexPhone = /^[0-9]{0,13}$/;
+                        if (homeMainRegexControl().phoneInputCheck(e.target.value)) {
                             setMyData({ ...myData, [typeName]: e.target.value });
                         }
                         break;
                     case 'name':
-                        const regexName = /^[a-zㄱ-ㅎㅏ-ㅣ가-힣!]{0,20}$/;
-                        if (regexName.test(e.target.value)) {
+                        if (homeMainRegexControl().nameInputCheck(e.target.value)) {
                             setMyData({ ...myData, [typeName]: e.target.value });
                         }
                         break;
@@ -163,8 +164,51 @@ const HomeMain = () => {
                         break;
                 }
             },
-            handleOnSubmit: function(){
-                console.log(myData);
+            handleOnSubmit: async function(e){
+                e.preventDefault();
+                if(!myData.agreePrivacy){
+                    alert('개인정보 수집 및 이용에 동의해주세요.');
+                    return;
+                }
+
+                if(!myData.agreeConsignment){
+                    alert('개인정보 위탁에 동의해주세요.');
+                    return;
+                }
+
+                if(!myData.agreeNotice){
+                    alert('이벤트 유의사항 확인에 동의해주세요.');
+                    return;
+                }
+
+                if(!homeMainRegexControl().nameInputCheck(myData.name)){
+                    alert('name value is failed');
+                    return;
+                }
+
+                if(!homeMainRegexControl().phoneInputCheck(myData.phone)){
+                    alert('phone value is failed');
+                    return;
+                }
+
+                if(!(myData.imageUrl && myData.imageName)){
+                    alert('등록된 이미지가 없습니다.');
+                    return;
+                }
+                await __homeMainDataConnect().insertEventApplication();
+            }
+        }
+    }
+
+    const homeMainRegexControl = () =>{
+        return{
+            nameInputCheck: function(value){
+                const reg = /^[a-zㄱ-ㅎㅏ-ㅣ가-힣!@]{0,20}$/;
+                return reg.test(value);
+            },
+            phoneInputCheck: function(value){
+                const reg = /^[0-9]{0,13}$/;
+                return reg.test(value);
             }
         }
     }

@@ -267,79 +267,81 @@ const ApplyModal = (props) => {
             >
 
                 <DialogContainer>
-
-                    <TitleContainer>
-                        <CloseBtnBox>
-                            <CloseBtn type='button' onClick={() => props.homeMainEventControl().handleEventModal().close()}><CloseBtnImageEl src={'/image/icon/close.png'}></CloseBtnImageEl></CloseBtn>
-                        </CloseBtnBox>
-                        <TitleWrapper>
-                            <MainTitleEl>락토핏 가정의달 이벤트</MainTitleEl>
-                            <SubTitleEl>이벤트 신청</SubTitleEl>
-                        </TitleWrapper>
-                    </TitleContainer>
-                    <DialogContent>
-                        <ContentExplainBox>
-                            <ContentExplainTopEl>
-                                락토핏 가정의달 이벤트 참여를 위해
+                    <form onSubmit={(e) => props.homeMainEventControl().handleOnSubmit(e)}>
+                        <TitleContainer>
+                            <CloseBtnBox>
+                                <CloseBtn type='button' onClick={() => props.homeMainEventControl().handleEventModal().close()}><CloseBtnImageEl src={'/image/icon/close.png'}></CloseBtnImageEl></CloseBtn>
+                            </CloseBtnBox>
+                            <TitleWrapper>
+                                <MainTitleEl>락토핏 가정의달 이벤트</MainTitleEl>
+                                <SubTitleEl>이벤트 신청</SubTitleEl>
+                            </TitleWrapper>
+                        </TitleContainer>
+                        <DialogContent>
+                            <ContentExplainBox>
+                                <ContentExplainTopEl>
+                                    락토핏 가정의달 이벤트 참여를 위해
                             </ContentExplainTopEl>
-                            <ContentExplainSubEl>
-                                아래의 정보들을 입력해 주세요.
+                                <ContentExplainSubEl>
+                                    아래의 정보들을 입력해 주세요.
                             </ContentExplainSubEl>
-                        </ContentExplainBox>
-                        {/* <DialogContentText>
+                            </ContentExplainBox>
+                            {/* <DialogContentText>
                             이벤트 참여를 위해 아래의 정보들을 입력해 주세요.
                         </DialogContentText> */}
-                        <InputContainer>
-                            <InputLabel>이름</InputLabel>
-                            <InputEl type='text' name='name' placeholder='ex) 홍길동' value={props.myData.name} onChange={(e) => props.homeMainEventControl().handleInputValueChange(e)}></InputEl>
-                            <InputSmallEl>* 이벤트 신청인 이름을 입력해주세요.</InputSmallEl>
-                        </InputContainer>
-                        <InputContainer>
-                            <InputLabel>휴대전화번호</InputLabel>
-                            <InputEl type='text' name='phone' placeholder='ex) 01012341234' value={props.myData.phone} onChange={(e) => props.homeMainEventControl().handleInputValueChange(e)}></InputEl>
-                            <InputSmallEl>* 당첨시 연락받으실 전화번호를 '-' 를 제외한 숫자만 입력해주세요.</InputSmallEl>
-                        </InputContainer>
-                        <InputContainer>
-                            <InputLabel>사진 (권장 비율 1:1)</InputLabel>
-                            <br />
-                            <InputSmallEl>* 락토핏과 함께찍은 사진을 올려주세요.</InputSmallEl>
-                            {props.myData.imageUrl ?
-                                <ImageWrapper onClick={() => props.homeMainEventControl().handleUploader().open()}>
-                                    <ImageBox>
-                                        <ImageEl src={props.myData.imageUrl}></ImageEl>
-                                    </ImageBox>
-                                </ImageWrapper>
-                                :
-                                <ImageWrapper onClick={() => props.homeMainEventControl().handleUploader().open()}>
-                                    <ImageBox>
-                                        <ImageUploadTextEl>사진 업로드</ImageUploadTextEl>
-                                    </ImageBox>
-                                </ImageWrapper>
-                            }
-                        </InputContainer>
-                        <InputContainer>
-                            <div>
-                                <Checkbox color="default" name='agreePrivacy' checked={props.myData.agreePrivacy} onChange={(e) => props.homeMainEventControl().handleInputValueChange(e)}/>
-                                <CheckBoxLabel><a href='/' target='_blank'><u>개인정보 수집 및 이용</u></a>에 동의합니다.(필수)</CheckBoxLabel>
-                            </div>
-                            <div>
-                                <Checkbox color="default" name='agreeConsignment' checked={props.myData.agreeConsignment} onChange={(e) => props.homeMainEventControl().handleInputValueChange(e)}/>
-                                <CheckBoxLabel><a href='/' target='_blank'><u>개인정보 위탁</u></a>에 동의합니다.(필수)</CheckBoxLabel>
-                            </div>
-                            <div>
-                                <Checkbox color="default" name='agreeNotice' checked={props.myData.agreeNotice} onChange={(e) => props.homeMainEventControl().handleInputValueChange(e)}/>
-                                <CheckBoxLabel>이벤트 유의사항을 모두 확인했으며, 이에 동의합니다.(필수)</CheckBoxLabel>
-                            </div>
-                        </InputContainer>
-                    </DialogContent>
-                    <ButtonBox>
-                        <CancelBtnEl type='button' onClick={() => props.homeMainEventControl().handleEventModal().close()}>
-                            취소
-                        </CancelBtnEl>
-                        <RegBtnEl type='button' onClick={() => props.homeMainEventControl().handleOnSubmit()}>
-                            등록
-                        </RegBtnEl>
-                    </ButtonBox>
+                            <InputContainer>
+                                <InputLabel>이름</InputLabel>
+                                <InputEl type='text' name='name' placeholder='ex) 홍길동' value={props.myData.name} onChange={(e) => props.homeMainEventControl().handleInputValueChange(e)} required></InputEl>
+                                <InputSmallEl>* 이벤트 신청인 이름을 입력해주세요.</InputSmallEl>
+                            </InputContainer>
+                            <InputContainer>
+                                <InputLabel>휴대전화번호</InputLabel>
+                                <InputEl type='text' name='phone' placeholder='ex) 01012341234' value={props.myData.phone} onChange={(e) => props.homeMainEventControl().handleInputValueChange(e)} required></InputEl>
+                                <InputSmallEl>* 당첨시 연락받으실 전화번호를 '-' 를 제외한 숫자만 입력해주세요.</InputSmallEl>
+                            </InputContainer>
+                            <InputContainer>
+                                <InputLabel>사진 (권장 비율 1:1)</InputLabel>
+                                <br />
+                                <InputSmallEl>* 락토핏과 함께찍은 사진을 올려주세요.</InputSmallEl>
+                                {props.myData.imageUrl ?
+                                    <ImageWrapper onClick={() => props.homeMainEventControl().handleUploader().open()}>
+                                        <ImageBox>
+                                            <ImageEl src={props.myData.imageUrl}></ImageEl>
+                                        </ImageBox>
+                                    </ImageWrapper>
+                                    :
+                                    <ImageWrapper onClick={() => props.homeMainEventControl().handleUploader().open()}>
+                                        <ImageBox>
+                                            <ImageUploadTextEl>사진 업로드</ImageUploadTextEl>
+                                        </ImageBox>
+                                    </ImageWrapper>
+                                }
+                            </InputContainer>
+                            <InputContainer>
+                                <div>
+                                    <Checkbox color="default" name='agreePrivacy' id='i_agreePrivacy' checked={props.myData.agreePrivacy} onChange={(e) => props.homeMainEventControl().handleInputValueChange(e)} required />
+                                    <CheckBoxLabel htmlFor='i_agreePrivacy'><a href='/' target='_blank'><u>개인정보 수집 및 이용</u></a>에 동의합니다.(필수)</CheckBoxLabel>
+                                </div>
+                                <div>
+                                    <Checkbox color="default" name='agreeConsignment' id='i_agreeConsignment' checked={props.myData.agreeConsignment} onChange={(e) => props.homeMainEventControl().handleInputValueChange(e)} required />
+                                    <CheckBoxLabel htmlFor='i_agreeConsignment'><a href='/' target='_blank'><u>개인정보 위탁</u></a>에 동의합니다.(필수)</CheckBoxLabel>
+                                </div>
+                                <div>
+                                    <Checkbox color="default" name='agreeNotice' id='i_agreeNotice' checked={props.myData.agreeNotice} onChange={(e) => props.homeMainEventControl().handleInputValueChange(e)} required />
+                                    <CheckBoxLabel htmlFor='i_agreeNotice'>이벤트 유의사항을 모두 확인했으며, 이에 동의합니다.(필수)</CheckBoxLabel>
+                                </div>
+                            </InputContainer>
+
+                        </DialogContent>
+                        <ButtonBox>
+                            <CancelBtnEl type='button' onClick={() => props.homeMainEventControl().handleEventModal().close()}>
+                                취소
+                            </CancelBtnEl>
+                            <RegBtnEl type='submit'>
+                                등록
+                            </RegBtnEl>
+                        </ButtonBox>
+                    </form>
                 </DialogContainer>
             </Dialog>
         </>
