@@ -4,16 +4,30 @@ import styled from 'styled-components';
 
 // data connect
 import { fileUploadDataConnect } from '../../data_connect/upload/fileUploadDataConnect';
-import {homeMainDataConnect} from '../../data_connect/home/homeMainDataConnect';
+import { homeMainDataConnect } from '../../data_connect/home/homeMainDataConnect';
 
 // component
 import HomeBody from './HomeBody';
 import ApplyButton from '../apply/ApplyButton';
 import ApplyModal from '../apply/ApplyModal';
 import CircularLoading from '../loading/CircularLoading';
+import SliderBody from './SliderBody';
 
 const FILE_MAX_SIZE = 10000000 // 10MB 초과시 리턴
 
+const BgBox = styled.div`
+    width:1920px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height:0;
+    @media only screen and (max-width:1920px){
+        width:100%;    
+    }
+`;
+
+const BgImageEl = styled.img`
+    width:100%;
+`;
 const ImageBox = styled.div`
     position: relative;
     padding-bottom: 42.86%; // 21:9 1920px x 823px
@@ -37,8 +51,8 @@ const HomeMain = () => {
     const [myData, setMyData] = useState({
         'name': '',
         'phone': '',
-        'imageUrl': 'asd',
-        'imageName': 'asd',
+        'imageUrl': '',
+        'imageName': '',
         'agreePrivacy': false,
         'agreeConsignment': false,
         'agreeNotice': false
@@ -164,34 +178,34 @@ const HomeMain = () => {
                         break;
                 }
             },
-            handleOnSubmit: async function(e){
+            handleOnSubmit: async function (e) {
                 e.preventDefault();
-                if(!myData.agreePrivacy){
+                if (!myData.agreePrivacy) {
                     alert('개인정보 수집 및 이용에 동의해주세요.');
                     return;
                 }
 
-                if(!myData.agreeConsignment){
+                if (!myData.agreeConsignment) {
                     alert('개인정보 위탁에 동의해주세요.');
                     return;
                 }
 
-                if(!myData.agreeNotice){
+                if (!myData.agreeNotice) {
                     alert('이벤트 유의사항 확인에 동의해주세요.');
                     return;
                 }
 
-                if(!homeMainRegexControl().nameInputCheck(myData.name)){
+                if (!homeMainRegexControl().nameInputCheck(myData.name)) {
                     alert('name value is failed');
                     return;
                 }
 
-                if(!homeMainRegexControl().phoneInputCheck(myData.phone)){
+                if (!homeMainRegexControl().phoneInputCheck(myData.phone)) {
                     alert('phone value is failed');
                     return;
                 }
 
-                if(!(myData.imageUrl && myData.imageName)){
+                if (!(myData.imageUrl && myData.imageName)) {
                     alert('등록된 이미지가 없습니다.');
                     return;
                 }
@@ -200,13 +214,13 @@ const HomeMain = () => {
         }
     }
 
-    const homeMainRegexControl = () =>{
-        return{
-            nameInputCheck: function(value){
+    const homeMainRegexControl = () => {
+        return {
+            nameInputCheck: function (value) {
                 const reg = /^[a-zㄱ-ㅎㅏ-ㅣ가-힣!@]{0,20}$/;
                 return reg.test(value);
             },
-            phoneInputCheck: function(value){
+            phoneInputCheck: function (value) {
                 const reg = /^[0-9]{0,13}$/;
                 return reg.test(value);
             }
@@ -217,14 +231,20 @@ const HomeMain = () => {
             {/* <ImageEl src="https://s3.ap-northeast-2.amazonaws.com/image.piaar.co.kr/main.jpeg"></ImageEl> */}
             {/* <ImageEl src="http://image.piaar.co.kr/main.jpeg"></ImageEl> */}
             {/* <img src="https://s3.ap-northeast-2.amazonaws.com/image.piaar.co.kr/upload/image/1618370694744-12342.jpeg"></img> */}
-            {/* <HomeBody></HomeBody> */}
-            <ImageBox>
-                <ImageEl src='https://s3.ap-northeast-2.amazonaws.com/image.piaar.co.kr/main.jpeg'></ImageEl>
-            </ImageBox>
             {/* == Apply Button Part START == */}
+            <SliderBody></SliderBody>
+            <BgBox>
+                <BgImageEl src='/image/bg/lacto-bg1.png'></BgImageEl>
+            </BgBox>
+            <BgBox>
+                <BgImageEl src='/image/bg/lacto-bg2.png'></BgImageEl>
+            </BgBox>
             <ApplyButton
                 homeMainEventControl={homeMainEventControl}
             ></ApplyButton>
+            <BgBox>
+                <BgImageEl src='/image/bg/lacto-bg3.png'></BgImageEl>
+            </BgBox>
             {/* == Apply Button Part END == */}
 
             {/* == Apply Modal Part START == */}

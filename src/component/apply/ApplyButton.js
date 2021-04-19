@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-const __MY_RED='#eb1c24';
-const __MY_YELLOW='#ffe431';
-const __MY_PINK='#f8a59d';
+const __MY_RED = '#eb1c24';
+const __MY_YELLOW = '#ffe431';
+const __MY_PINK = '#f8a59d';
 
 const Container = styled.div`
     overflow:hidden;
@@ -11,7 +11,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
     
     width:1920px;
-    background:${__MY_PINK};
+    background:#fffa2c;
     margin-left: auto;
     margin-right: auto;
     padding:20px 0;
@@ -20,6 +20,22 @@ const Wrapper = styled.div`
     }
 `;
 
+const ExplainContaner = styled.div`
+    padding: 20px 20px;
+    text-align:center;
+    font-size:1.5rem;
+    font-weight:800;
+    line-height:1.7;
+    @media only screen and (max-width:1100px){
+        padding: 8px 20px 20px 20px;
+        font-size:1.5rem;
+    }
+
+    @media only screen and (max-width:576px){
+        padding: 8px 20px 20px 20px;
+        font-size:1rem;
+    }
+`;
 const ButtonContainer = styled.div`
     width:100%;
     text-align:center;
@@ -63,8 +79,14 @@ const ApplyButton = (props) => {
         <>
             <Container>
                 <Wrapper>
+                    <ExplainContaner>
+                        잠깐! 인스타그램 계정이 없으신가요 ?
+                        <br/>
+                        지금 페이지에 인증샷 업로드하면 참여 완료!
+                    </ExplainContaner>
+
                     <ButtonContainer>
-                        <ButtonEl type='button' onClick={()=>props.homeMainEventControl().handleEventModal().open()}>웹에서 이벤트 참여하기</ButtonEl>
+                        <ButtonEl type='button' onClick={() => props.homeMainEventControl().handleEventModal().open()}>웹에서 이벤트 참여하기</ButtonEl>
                     </ButtonContainer>
                 </Wrapper>
             </Container>

@@ -17,7 +17,7 @@ const __MY_PINK = '#f8a59d';
 const DialogContainer = styled.div`
     position:relative;
     & .MyDialogTitle{
-        background:${__MY_PINK};
+        background:#fffa58;
         text-align:center;
         color:white;
         padding:3rem;
@@ -30,7 +30,7 @@ const DialogContainer = styled.div`
 `;
 
 const TitleContainer = styled.div`
-    background:${__MY_PINK};
+    background:#fffa58;
     color:#333;
 `;
 
@@ -211,7 +211,7 @@ const CancelBtnEl = styled.button`
 `;
 
 const RegBtnEl = styled.button`
-    background:${__MY_PINK};
+    background:#fffa58;
     border:none;
     padding:30px;
     margin:0 10px;
