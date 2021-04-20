@@ -44,6 +44,8 @@ const ImageEl = styled.img`
     transition: .5s;
 `;
 
+
+
 const HomeMain = () => {
     const [eventModalOpen, setEventModalOpen] = useState(false);
     const [imageLoadingOpen, setImageLoadingOpen] = useState(false);
@@ -57,6 +59,15 @@ const HomeMain = () => {
         'agreeConsignment': false,
         'agreeNotice': false
     });
+
+    useEffect(() => {
+        function fetchInit() {
+            axios.get(`${process.env.REACT_APP_API_ADDRESS}/api/csrf`, {
+                withCredentials: true
+            })
+        }
+        fetchInit();
+    }, [])
 
     const __homeMainDataConnect = () => {
         return {
@@ -97,7 +108,19 @@ const HomeMain = () => {
             },
             insertEventApplication: async function () {
                 let data = myData;
-                await homeMainDataConnect().postEventApplication(data);
+                await homeMainDataConnect().postEventApplication(data)
+                    .then(res=>{
+                        if(res.status == 200 && res.data && res.data.message == 'success'){
+                            alert('참여가 완료되었습니다.');
+                        }else{
+                            alert('이벤트 접수에 실패했습니다.');
+                        }
+                    })
+                    .catch(err=>{
+                        alert('undefined error.')
+                    });
+                ;
+                homeMainEventControl().handleEventModal().close();
             }
         }
     }
@@ -261,6 +284,7 @@ const HomeMain = () => {
 
                 homeMainEventControl={homeMainEventControl}
             ></CircularLoading>
+
         </>
     );
 }
